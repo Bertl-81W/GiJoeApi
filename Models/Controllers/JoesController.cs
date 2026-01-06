@@ -20,4 +20,16 @@ public class JoesController : ControllerBase
     {
         joes.Add(newJoe);
     }
+    [HttpGet("{name}")]
+   public ActionResult<Joe> GetJoeByName(string name)
+    {
+        var joe = joes.FirstOrDefault(j =>
+        j.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+        if (joe == null)
+        {
+            return NotFound();
+        }
+        return joe;
+    }
 }
