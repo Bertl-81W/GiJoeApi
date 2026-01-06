@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiJoeApi", "GiJoeApi.csproj", "{A25643D0-3F61-D8DF-9656-5BC416E79961}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A25643D0-3F61-D8DF-9656-5BC416E79961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A25643D0-3F61-D8DF-9656-5BC416E79961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A25643D0-3F61-D8DF-9656-5BC416E79961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A25643D0-3F61-D8DF-9656-5BC416E79961}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B912717-EE2F-4DD8-A1D6-7881097DE013}
+	EndGlobalSection
+EndGlobal
