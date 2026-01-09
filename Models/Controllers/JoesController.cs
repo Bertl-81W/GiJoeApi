@@ -32,4 +32,19 @@ public class JoesController : ControllerBase
         }
         return joe;
     }
+
+    [HttpDelete("{name}")]
+public IActionResult DeleteJoe(string name)
+{
+    var joe = joes.FirstOrDefault(j =>
+        j.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+    if (joe == null)
+    {
+        return NotFound($"Joe '{name}' not found.");
+    }
+
+    joes.Remove(joe);
+ return Ok($"Joe '{name}' has been removed.");
+}
 }
