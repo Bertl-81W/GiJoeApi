@@ -1,8 +1,8 @@
+namespace GiJoeApi.Services;
+
 using System.Net.Http;
 using System.Text.Json;
 using GiJoeApi.Models;
-
-namespace GiJoeApi.Services;
 
 public class GiJoeService
 {

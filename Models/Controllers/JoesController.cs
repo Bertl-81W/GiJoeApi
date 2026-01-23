@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using GiJoeApi.Models;
+using GiJoeApi.Services;
+
 
 namespace GiJoeApi.Controllers;
 
@@ -68,5 +70,17 @@ public IActionResult DeleteJoe(string name)
     joe.Specialty = updatedJoe.Specialty;
 
     return Ok(joe);
+}
+private readonly GiJoeService _giJoeService;
+
+public JoesController(GiJoeService giJoeService)
+{
+    _giJoeService = giJoeService;
+}
+[HttpGet("external")]
+public async Task<ActionResult<List<Joe>>> GetExternalJoes()
+{
+    var joes = await _giJoeService.GetExternalJoesAsync();
+    return Ok(joes);
 }
 }

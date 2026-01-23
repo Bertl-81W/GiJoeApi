@@ -1,5 +1,6 @@
-var builder = WebApplication.CreateBuilder(args);
+using GiJoeApi.Services;
 
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
