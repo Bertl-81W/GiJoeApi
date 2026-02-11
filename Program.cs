@@ -6,6 +6,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<GiJoeService>();
+builder.Services.AddSingleton<GiJoeService>();
 
 
 var app = builder.Build();

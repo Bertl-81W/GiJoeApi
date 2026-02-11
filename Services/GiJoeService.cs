@@ -1,29 +1,61 @@
-namespace GiJoeApi.Services;
-
-using System.Net.Http;
-using System.Text.Json;
 using GiJoeApi.Models;
 
-public class GiJoeService
+namespace GiJoeApi.Services
 {
-    private readonly HttpClient _httpClient;
-
-    public GiJoeService(HttpClient httpClient)
+    public class GiJoeService
     {
-        _httpClient = httpClient;
-    }
+        private readonly List<Joe> _joes = new();
 
-    public async Task<List<Joe>> GetExternalJoesAsync()
-    {
-        var response = await _httpClient.GetAsync("https://gijoe-api.onrender.com/api/characters");
+        public List<Joe> GetAll()
+        {
+            return _joes;
+        }
 
+        public Joe? GetByName(string name)
+        {
+            return _joes.FirstOrDefault(j =>
+                j.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
 
-        if (!response.IsSuccessStatusCode)
+        public void Add(Joe newJoe)
+        {
+            _joes.Add(newJoe);
+        }
+
+        public bool Update(string name, Joe updatedJoe)
+        {
+            var existingJoe = GetByName(name);
+
+            if (existingJoe == null)
+            {
+                return false;
+            }
+
+            existingJoe.Name = updatedJoe.Name;
+            existingJoe.PlaceOfBirth = updatedJoe.PlaceOfBirth;
+            existingJoe.Specialty = updatedJoe.Specialty;
+
+            return true;
+        }
+
+        public bool Delete(string name)
+        {
+            var joe = GetByName(name);
+
+            if (joe == null)
+            {
+                return false;
+            }
+
+            _joes.Remove(joe);
+            return true;
+        }
+
+        public async Task<List<Joe>> GetExternalJoesAsync()
+        {
+            // placeholder for external API call
+            await Task.Delay(500);
             return new List<Joe>();
-
-        var json = await response.Content.ReadAsStringAsync();
-
-        return JsonSerializer.Deserialize<List<Joe>>(json)
-               ?? new List<Joe>();
+        }
     }
 }
