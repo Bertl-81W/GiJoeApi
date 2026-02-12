@@ -18,10 +18,11 @@ namespace GiJoeApi.Controllers
         [HttpGet]
         public IActionResult GetAllJoes()
         {
+            var joes = _giJoeService.GetAll();
             return Ok("Yo Joe!");
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetJoeById(int id)
         {
             return Ok($"Joe #{id}");
