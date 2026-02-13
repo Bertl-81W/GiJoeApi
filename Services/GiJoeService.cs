@@ -4,7 +4,28 @@ namespace GiJoeApi.Services
 {
     public class GiJoeService
     {
+        private readonly HttpClient _httpClient;
         private readonly List<Joe> _joes = new();
+
+        public GiJoeService(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+
+        _joes.Add(new Joe
+        {
+            Name = "Snake Eyes",
+            PlaceOfBirth = "Unknown",
+            Specialty = "Commando"
+        });
+
+        _joes.Add(new Joe
+        {
+            Name = "Duke",
+            PlaceOfBirth = "USA",
+            Specialty = "Leader"
+        });
+    }
+
 
         public List<Joe> GetAll()
         {
