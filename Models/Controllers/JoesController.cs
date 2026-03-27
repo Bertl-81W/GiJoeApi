@@ -19,7 +19,7 @@ namespace GiJoeApi.Controllers
         public IActionResult GetAllJoes()
         {
             var joes = _giJoeService.GetAll();
-            return Ok("Yo Joe!");
+            return Ok(joes);
         }
 
         [HttpGet("{id:int}")]
@@ -76,7 +76,7 @@ namespace GiJoeApi.Controllers
                 return NotFound($"Joe '{name}' not found.");
             }
 
-            return Ok($"Joe '{name}' has been removed.");
+            return NoContent();
         }
 
         [HttpGet("external")]
