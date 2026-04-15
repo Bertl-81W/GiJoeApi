@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using GiJoeApi.Data;
 using GiJoeApi.Models;
-using GiJoeApi.Services;
 
 namespace GiJoeApi.Controllers
 {
@@ -8,82 +9,66 @@ namespace GiJoeApi.Controllers
     [Route("api/[controller]")]
     public class JoesController : ControllerBase
     {
-        private readonly GiJoeService _giJoeService;
+        private readonly AppDbContext _context;
 
-        public JoesController(GiJoeService giJoeService)
+        public JoesController(AppDbContext context)
         {
-            _giJoeService = giJoeService;
+            _context = context;
         }
 
         [HttpGet]
-        public IActionResult GetAllJoes()
+        public async Task<IActionResult> GetAllJoes()
         {
-            var joes = _giJoeService.GetAll();
+            var joes = await _context.Characters.ToListAsync();
             return Ok(joes);
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult GetJoeById(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetJoeById(int id)
         {
-            return Ok($"Joe #{id}");
-        }
+            var joe = await _context.Characters.FindAsync(id);
 
-        [HttpGet("by-name/{name}")]
-        public ActionResult<Joe> GetJoeByName(string name)
-        {
-            var joe = _giJoeService.GetByName(name);
-
-            if (joe == null)
-            {
-                return NotFound();
-            }
+            if (joe == null) return NotFound();
 
             return Ok(joe);
         }
 
         [HttpPost]
-        public IActionResult AddJoe(Joe newJoe)
+        public async Task<IActionResult> AddJoe(Character newJoe)
         {
-            _giJoeService.Add(newJoe);
+            _context.Characters.Add(newJoe);
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction(
-                nameof(GetJoeByName),
-                new { name = newJoe.Name },
-                newJoe
-            );
+            return CreatedAtAction(nameof(GetJoeById), new { id = newJoe.Id }, newJoe);
         }
 
-        [HttpPut("{name}")]
-        public IActionResult UpdateJoe(string name, Joe updatedJoe)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateJoe(int id, Character updatedJoe)
         {
-            var success = _giJoeService.Update(name, updatedJoe);
+            var existingJoe = await _context.Characters.FindAsync(id);
 
-            if (!success)
-            {
-                return NotFound($"Joe '{name}' not found.");
-            }
+            if (existingJoe == null) return NotFound();
 
-            return Ok($"Joe '{name}' has been updated.");
+            existingJoe.Name = updatedJoe.Name;
+            existingJoe.PlaceOfBirth = updatedJoe.PlaceOfBirth;
+            existingJoe.Specialty = updatedJoe.Specialty;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(existingJoe);
         }
 
-        [HttpDelete("{name}")]
-        public IActionResult DeleteJoe(string name)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteJoe(int id)
         {
-            var success = _giJoeService.Delete(name);
+            var joe = await _context.Characters.FindAsync(id);
 
-            if (!success)
-            {
-                return NotFound($"Joe '{name}' not found.");
-            }
+            if (joe == null) return NotFound();
+
+            _context.Characters.Remove(joe);
+            await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        [HttpGet("external")]
-        public async Task<ActionResult<List<Joe>>> GetExternalJoes()
-        {
-            var joes = await _giJoeService.GetExternalJoesAsync();
-            return Ok(joes);
         }
     }
 }
