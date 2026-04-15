@@ -84,5 +84,19 @@ namespace GiJoeApi.Controllers
 
               return Ok(results);
         }
+        [HttpGet("specialty/{specialty}")]
+        public async Task<IActionResult> GetBySpecialty(string specialty)
+        {
+            var results = await _context.Characters
+              .Where(c => c.Specialty.ToLower() == specialty.ToLower())
+              .ToListAsync();
+
+            if (!results.Any())
+            {
+              return NotFound("No characters found with that specialty.");
+            }
+
+              return Ok(results);
+        }
     }
 }
