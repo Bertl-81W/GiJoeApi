@@ -70,5 +70,19 @@ namespace GiJoeApi.Controllers
 
             return NoContent();
         }
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchByName([FromQuery] string name)
+        {
+           var results = await _context.Characters
+              .Where(c => c.Name.ToLower().Contains(name.ToLower()))
+              .ToListAsync();
+
+            if (results.Count == 0)
+            {
+              return NotFound("No characters found.");
+            }
+
+              return Ok(results);
+        }
     }
 }
