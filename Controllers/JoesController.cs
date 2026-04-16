@@ -16,11 +16,23 @@ namespace GiJoeApi.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllJoes()
-        {
-            var joes = await _context.Characters.ToListAsync();
-            return Ok(joes);
+       [HttpGet]
+        public async Task<IActionResult> GetAllJoes([FromQuery] int page = 1, [FromQuery] int pageSize = 5)
+       {
+         var totalCount = await _context.Characters.CountAsync();
+
+         var joes = await _context.Characters
+           .Skip((page - 1) * pageSize)
+           .Take(pageSize)
+           .ToListAsync();
+
+           return Ok(new
+         {
+           totalCount,
+           page,
+           pageSize,
+           data = joes
+         });
         }
 
         [HttpGet("{id}")]
