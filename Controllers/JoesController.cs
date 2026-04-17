@@ -75,8 +75,10 @@ namespace GiJoeApi.Controllers
         {
             var joe = await _context.Characters.FindAsync(id);
 
-            if (joe == null) return NotFound();
-
+            if (joe == null) 
+            {
+                return NotFound();
+            }
             _context.Characters.Remove(joe);
             await _context.SaveChangesAsync();
 
