@@ -48,6 +48,14 @@ namespace GiJoeApi.Controllers
         [HttpPost]
         public async Task<IActionResult> AddJoe(Character newJoe)
         {
+        var exists = await _context.Characters
+           .AnyAsync(c => c.Name.ToLower() == newJoe.Name.ToLower());
+ 
+         if (exists)
+        {
+           return BadRequest("Character already exists.");
+        }
+
             _context.Characters.Add(newJoe);
             await _context.SaveChangesAsync();
 
