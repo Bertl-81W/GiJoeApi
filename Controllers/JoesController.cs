@@ -59,7 +59,10 @@ namespace GiJoeApi.Controllers
         {
             var existingJoe = await _context.Characters.FindAsync(id);
 
-            if (existingJoe == null) return NotFound();
+            if (existingJoe == null)
+            {
+              return NotFound();
+            }  
 
             existingJoe.Name = updatedJoe.Name;
             existingJoe.PlaceOfBirth = updatedJoe.PlaceOfBirth;
