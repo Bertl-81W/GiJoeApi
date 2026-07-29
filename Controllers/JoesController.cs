@@ -75,6 +75,7 @@ namespace GiJoeApi.Controllers
             existingJoe.Name = updatedJoe.Name;
             existingJoe.PlaceOfBirth = updatedJoe.PlaceOfBirth;
             existingJoe.Specialty = updatedJoe.Specialty;
+            existingJoe.Faction = updatedJoe.Faction;
 
             await _context.SaveChangesAsync();
 

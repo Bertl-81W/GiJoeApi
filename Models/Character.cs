@@ -6,6 +6,6 @@ public class Character
     
     public string Name { get; set; } = string.Empty;
     public string PlaceOfBirth { get; set; } = string.Empty;    
-    public string Specialty { get; set; } = string.Empty;
-    
+    public string Specialty { get; set; } = string.Empty;    
+    public string Faction { get; set; } = string.Empty;  
 }
