@@ -73,7 +73,7 @@ namespace GiJoeApi.Controllers
             }  
 
             existingJoe.Name = updatedJoe.Name;
-            existingJoe.PlaceOfBirth = updatedJoe.PlaceOfBirth;
+            existingJoe.Accessories = updatedJoe.Accessories;
             existingJoe.Specialty = updatedJoe.Specialty;
             existingJoe.Faction = updatedJoe.Faction;
 
