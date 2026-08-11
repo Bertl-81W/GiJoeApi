@@ -22,6 +22,7 @@ namespace GiJoeApi.Controllers
          var totalCount = await _context.Characters.CountAsync();
 
          var joes = await _context.Characters
+           .OrderBy(c => c.Id)
            .Skip((page - 1) * pageSize)
            .Take(pageSize)
            .ToListAsync();
@@ -96,20 +97,16 @@ namespace GiJoeApi.Controllers
 
             return NoContent();
         }
+
         [HttpGet("search")]
-        public async Task<IActionResult> SearchByName([FromQuery] string name)
-        {
-           var results = await _context.Characters
-              .Where(c => c.Name.ToLower().Contains(name.ToLower()))
-              .ToListAsync();
+        public async Task<IActionResult> SearchByName([FromQuery] string name)    {
+         var results = await _context.Characters
+        .Where(c => c.Name.ToLower().Contains(name.ToLower()))
+        .ToListAsync();
 
-            if (results.Count == 0)
-            {
-              return NotFound("No characters found.");
-            }
-
-              return Ok(results);
-        }
+        return Ok(results);
+   }
+      
         [HttpGet("specialty/{specialty}")]
         public async Task<IActionResult> GetBySpecialty(string specialty)
         {
@@ -126,3 +123,4 @@ namespace GiJoeApi.Controllers
         }
     }
 }
+

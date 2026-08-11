@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GiJoeApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260728132414_AddFactionToCharacter")]
-    partial class AddFactionToCharacter
+    [Migration("20260806134843_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,15 +25,18 @@ namespace GiJoeApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Accessories")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Faction")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("HasFileCard")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("PlaceOfBirth")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

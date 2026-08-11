@@ -17,8 +17,10 @@ namespace GiJoeApi.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    PlaceOfBirth = table.Column<string>(type: "TEXT", nullable: false),
-                    Specialty = table.Column<string>(type: "TEXT", nullable: false)
+                    Accessories = table.Column<string>(type: "TEXT", nullable: false),
+                    Specialty = table.Column<string>(type: "TEXT", nullable: false),
+                    Faction = table.Column<string>(type: "TEXT", nullable: false),
+                    HasFileCard = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -22,15 +22,18 @@ namespace GiJoeApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Accessories")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Faction")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("HasFileCard")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("PlaceOfBirth")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
