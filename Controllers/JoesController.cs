@@ -77,6 +77,7 @@ namespace GiJoeApi.Controllers
             existingJoe.Accessories = updatedJoe.Accessories;
             existingJoe.Specialty = updatedJoe.Specialty;
             existingJoe.Faction = updatedJoe.Faction;
+            existingJoe.HasFileCard = updatedJoe.HasFileCard;
 
             await _context.SaveChangesAsync();
 
